@@ -1,0 +1,201 @@
+openapi: 3.0.2
+info:
+  title: FastAPI
+  version: 0.1.0
+x-yc-apigateway:
+  service_account_id: ${API_SA_ID}
+
+paths:
+  /{file+}:
+    options:
+      parameters:
+        - name: file
+          in: path
+          description: greedy param
+          required: false
+          schema:
+            type: string
+      description: Greedy options
+      operationId: greedyOptions
+      x-yc-apigateway-integration:
+        type: dummy
+        http_code: 200
+        content:
+          "*": ""
+        http_headers:
+          Allow: OPTIONS, GET, HEAD, POST
+          Access-Control-Allow-Origin: '*'
+          Access-Control-Allow-Headers: Content-Type, Authorization
+  "/":
+    get:
+      summary: Root Info
+      operationId: root_info__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${CATOBASE_API_CONTAINER_ID}
+  "/api/info":
+    get:
+      summary: Replica Info
+      operationId: replica_info_api_info_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InfoOutputDto"
+        x-yc-apigateway-integration:
+          type: serverless_containers
+          container_id: ${CATOBASE_API_CONTAINER_ID}
+  "/api/receipts":
+    get:
+      summary: Receipts
+      operationId: receipts_api_receipts_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ReceiptOutputDto"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${CATOBASE_API_CONTAINER_ID}
+    post:
+      summary: New Receipt
+      operationId: new_receipt_api_receipts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Receipt"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CreateOutputDto"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${CATOBASE_API_CONTAINER_ID}
+components:
+  schemas:
+    CreateOutputDto:
+      title: CreateOutputDto
+      required:
+        - created_id
+        - replica_id
+        - backend_version
+      type: object
+      properties:
+        created_id:
+          title: Created Id
+          type: string
+        replica_id:
+          title: Replica Id
+          type: string
+        backend_version:
+          title: Backend Version
+          type: string
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            "$ref": "#/components/schemas/ValidationError"
+    InfoOutputDto:
+      title: InfoOutputDto
+      required:
+        - backend_version
+        - replica_id
+      type: object
+      properties:
+        backend_version:
+          title: Backend Version
+          type: string
+        replica_id:
+          title: Replica Id
+          type: string
+    Receipt:
+      title: Receipt
+      required:
+        - name
+        - receipt
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        receipt:
+          title: Receipt
+          type: string
+    ReceiptOutput:
+      title: ReceiptOutput
+      required:
+        - name
+        - receipt
+        - receipt_id
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        receipt:
+          title: Receipt
+          type: string
+        receipt_id:
+          title: Receipt Id
+          type: string
+    ReceiptOutputDto:
+      title: ReceiptOutputDto
+      required:
+        - receipts
+        - count
+      type: object
+      properties:
+        receipts:
+          title: Receipts
+          type: array
+          items:
+            "$ref": "#/components/schemas/ReceiptOutput"
+        count:
+          title: Count
+          type: integer
+    ValidationError:
+      title: ValidationError
+      required:
+        - loc
+        - msg
+        - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
