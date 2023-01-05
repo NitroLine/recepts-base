@@ -3,8 +3,8 @@
 echo "`(cat version.json) | jq '.version = .version + 1'`"  > version.json;
 backendVersion=$(jq -r '.version' version.json);
 echo "App version: $backendVersion";
-docker build -t ${RECEIPT_API_REPOSITORY_NAME}:0.0.$backendVersion . ;
-docker push ${RECEIPT_API_REPOSITORY_NAME}:0.0.$backendVersion;
+docker build -t ${RECEIPT_API_REPOSITORY_NAME}:0.$backendVersion . ;
+docker push ${RECEIPT_API_REPOSITORY_NAME}:0.$backendVersion;
 yc sls container revisions deploy \
 	--folder-id ${FOLDER_ID} \
 	--container-id ${RECEIPT_API_CONTAINER_ID} \

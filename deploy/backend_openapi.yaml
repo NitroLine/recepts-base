@@ -3,7 +3,7 @@ info:
   title: FastAPI
   version: 0.1.0
 x-yc-apigateway:
-  service_account_id: ${API_SA_ID}
+  service_account_id: aje80tu406etpr1ciuiu
 
 paths:
   /{file+}:
@@ -38,7 +38,7 @@ paths:
               schema: {}
       x-yc-apigateway-integration:
         type: serverless_containers
-        container_id: ${CATOBASE_API_CONTAINER_ID}
+        container_id: bbavmrh8v4fro7225aqg
   "/api/info":
     get:
       summary: Replica Info
@@ -50,9 +50,9 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/InfoOutputDto"
-        x-yc-apigateway-integration:
-          type: serverless_containers
-          container_id: ${CATOBASE_API_CONTAINER_ID}
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbavmrh8v4fro7225aqg
   "/api/receipts":
     get:
       summary: Receipts
@@ -66,7 +66,7 @@ paths:
                 "$ref": "#/components/schemas/ReceiptOutputDto"
       x-yc-apigateway-integration:
         type: serverless_containers
-        container_id: ${CATOBASE_API_CONTAINER_ID}
+        container_id: bbavmrh8v4fro7225aqg
     post:
       summary: New Receipt
       operationId: new_receipt_api_receipts_post
@@ -91,7 +91,7 @@ paths:
                 "$ref": "#/components/schemas/HTTPValidationError"
       x-yc-apigateway-integration:
         type: serverless_containers
-        container_id: ${CATOBASE_API_CONTAINER_ID}
+        container_id: bbavmrh8v4fro7225aqg
 components:
   schemas:
     CreateOutputDto:

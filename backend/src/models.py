@@ -13,7 +13,7 @@ class ReceiptOutput(BaseModel):
 
 
 class ReceiptOutputDto(BaseModel):
-    receipt_names: list[ReceiptOutput]
+    receipts: list[ReceiptOutput]
     count: int
 
 

@@ -1,0 +1,8 @@
+export FOLDER_ID=b1gfdphr5fkt337ltrbn
+export AWS_SECRET_ACCESS_KEY=YCNNjIV6cfJWubanvJzfC_oYZhcToo4WefET1-0-
+export AWS_ACCESS_KEY_ID=YCAJE0qGoyfc5g4N38_rrVDQh
+export API_SA_ID=aje80tu406etpr1ciuiu
+export DOCUMENT_API_ENDPOINT=https://docapi.serverless.yandexcloud.net/ru-central1/b1g2s4sv2rqkol4efgqc/etnanapk10bkaclvu7f6
+export RECEIPT_API_REPOSITORY_NAME=cr.yandex/crp4cj407encp1h750sv/receipt-api
+export RECEIPT_API_CONTAINER_ID=bbavmrh8v4fro7225aqg
+export RECEIPT_WEBSITE_BUCKET=receipt-website-b1gfdphr5fkt337ltrbn

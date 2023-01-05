@@ -5,7 +5,7 @@ locals {
 resource "yandex_api_gateway" "receipt_api_gateway" {
   name      = local.api_gateway_name
   folder_id = local.folder_id
-  spec      = file("../backend/openapi.yaml")
+  spec      = file("backend_openapi.yaml")
 }
 
 output "receipt_api_gateway_domain" {

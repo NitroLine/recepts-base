@@ -16,24 +16,20 @@ ydb_docapi_client = boto3.resource('dynamodb',
                                    aws_secret_access_key=AWS_PRIVATE_KEY)
 
 table = ydb_docapi_client.Table('documentapidb/replica')
-response = table.update_item(Key={'key': 0},
-                             ReturnValues="UPDATED_NEW",
-                             ExpressionAttributeValues={":inc": 1},
-                             UpdateExpression='ADD value :inc',)
-replica_id = response['Attributes'].get('value', 0)
+
 
 @app.get("/")
-async def root():
+async def root_info():
     return {"description": "Рецепты.", "type": "api"}
 
 
 @app.get("/api/info", response_model=InfoOutputDto)
-async def server_info():
+async def replica_info():
     return {"backend_version": BACKEND_VERSION, "replica_id": replica_id}
 
 
 @app.get("/api/receipts", response_model=ReceiptOutputDto)
-async def names():
+async def receipts():
     ydb_docapi_client = boto3.resource('dynamodb',
                                        region_name=DB_REGION_NAME,
                                        endpoint_url=DB_ENDPOINT_URL,
@@ -52,11 +48,11 @@ async def names():
         items += response.get('Items', [])
         start_key = response.get('LastEvaluatedKey', None)
         done = start_key is None
-    return {"receipt_names": items, "count": response.get("Count", 0)}
+    return {"receipts": items, "count": response.get("Count", 0)}
 
 
 @app.post("/api/receipts", response_model=CreateOutputDto)
-async def name_add(receipt: Receipt):
+async def new_receipt(receipt: Receipt):
     ydb_docapi_client = boto3.resource('dynamodb',
                                        region_name=DB_REGION_NAME,
                                        endpoint_url=DB_ENDPOINT_URL,

@@ -14,7 +14,7 @@ def create_series_table():
             KeySchema=[
                 {
                     'AttributeName': 'key',
-                    'KeyType': 'HASH'  # Ключ партицирования
+                    'KeyType': 'HASH'
                 },
             ],
             AttributeDefinitions=[
@@ -24,7 +24,7 @@ def create_series_table():
                 },
                 {
                     'AttributeName': 'value',
-                    'AttributeType': 'N'  # Строка
+                    'AttributeType': 'N'
                 },
             ]
         )
@@ -37,7 +37,7 @@ def create_series_table():
                 },
                 {
                     'AttributeName': 'receipt',
-                    'KeyType': 'RANGE'  # Ключ сортировки
+                    'KeyType': 'RANGE'
                 }
             ],
             AttributeDefinitions=[
@@ -47,11 +47,11 @@ def create_series_table():
                 },
                 {
                     'AttributeName': 'name',
-                    'AttributeType': 'S'  # Строка
+                    'AttributeType': 'S'
                 },
                 {
                     'AttributeName': 'receipt',
-                    'AttributeType': 'S'  # Строка
+                    'AttributeType': 'S'
                 },
             ]
         )
