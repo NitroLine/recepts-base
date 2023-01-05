@@ -1,1 +1,1 @@
-# recepts-base
+# receipts-base
