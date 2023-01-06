@@ -4,6 +4,7 @@ https://d5dju5qjvcekak33bfgv.apigw.yandexcloud.net
 
 ## Обновление бекэнда
  - Сконфигурировать `yc` для работы с нужным облаком
+ - Сконфигурировать `docker` для работы с нужным regesty облака
  - Установить переменные окружения из файла `deploy/.export.example`
  - Запустить файл `bash backend/update.sh`
 
