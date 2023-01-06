@@ -7,7 +7,7 @@ terraform apply
 bash accout_accsess.sh
 yc container registry configure-docker
 yc sls container create --name catobase-api-container --folder-id ${FOLDER_ID}
-python3 backend/src/migration.py
+python3 backend/src/migrate.py
 bash backend/update.sh
-
+bash front/update.sh
 ```
