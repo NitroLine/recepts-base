@@ -16,6 +16,11 @@ ydb_docapi_client = boto3.resource('dynamodb',
                                    aws_secret_access_key=AWS_PRIVATE_KEY)
 
 table = ydb_docapi_client.Table('documentapidb/replica')
+response = table.update_item(Key={'key': 0},
+                             ReturnValues="UPDATED_NEW",
+                             ExpressionAttributeValues={":inc": 1},
+                             UpdateExpression='ADD value :inc',)
+replica_id = response['Attributes'].get('value', 0)
 
 
 @app.get("/")
